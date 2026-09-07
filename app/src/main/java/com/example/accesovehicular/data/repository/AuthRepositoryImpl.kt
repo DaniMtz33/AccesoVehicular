@@ -1,9 +1,10 @@
 package com.example.accesovehicular.data.repository
 
+import com.example.accesovehicular.data.local.SesionLocalDataSource
 import com.example.accesovehicular.domain.model.Sesion
 import com.example.accesovehicular.domain.repository.AuthRepository
-import com.example.accesovehicular.domain.session.SesionManager
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 
 /**
  * Implementación mock mientras no está lista la API real de Elizabeth.
@@ -17,10 +18,19 @@ class AuthRepositoryImpl : AuthRepository {
         delay(1500)
         return if (usuario == "test" && contrasena == "1234") {
             val token = "mock-token-${System.currentTimeMillis()}"
-            SesionManager.guardarToken(token)
+            SesionLocalDataSource.guardarToken(token)
             Result.success(Sesion(token = token))
         } else {
             Result.failure(Exception("Usuario o contraseña inválidos"))
         }
+    }
+
+    override suspend fun obtenerSesionGuardada(): Sesion? {
+        val token = SesionLocalDataSource.tokenFlow.first()
+        return token?.let { Sesion(token = it) }
+    }
+
+    override suspend fun cerrarSesion() {
+        SesionLocalDataSource.borrarToken()
     }
 }

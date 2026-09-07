@@ -8,6 +8,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -19,6 +22,14 @@ fun HomeScreen(
     onCerrarSesion: () -> Unit = {},
     viewModel: HomeViewModel = viewModel()
 ) {
+    val sesionCerrada by viewModel.sesionCerrada.collectAsState()
+
+    LaunchedEffect(sesionCerrada) {
+        if (sesionCerrada) {
+            onCerrarSesion()
+        }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -31,12 +42,7 @@ fun HomeScreen(
             style = MaterialTheme.typography.headlineSmall
         )
 
-        Button(
-            onClick = {
-                viewModel.cerrarSesion()
-                onCerrarSesion()
-            }
-        ) {
+        Button(onClick = viewModel::onCerrarSesionClick) {
             Text("Cerrar sesión")
         }
     }
