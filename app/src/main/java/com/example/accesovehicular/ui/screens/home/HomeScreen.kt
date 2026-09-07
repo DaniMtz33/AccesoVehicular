@@ -20,6 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun HomeScreen(
     modifier: Modifier = Modifier,
     onCerrarSesion: () -> Unit = {},
+    onEscanearQr: () -> Unit = {},
     viewModel: HomeViewModel = viewModel()
 ) {
     val sesionCerrada by viewModel.sesionCerrada.collectAsState()
@@ -41,6 +42,10 @@ fun HomeScreen(
             text = "Bienvenido",
             style = MaterialTheme.typography.headlineSmall
         )
+
+        Button(onClick = onEscanearQr) {
+            Text("Escanear QR")
+        }
 
         Button(onClick = viewModel::onCerrarSesionClick) {
             Text("Cerrar sesión")

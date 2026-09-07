@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.accesovehicular.ui.screens.home.HomeScreen
 import com.example.accesovehicular.ui.screens.login.LoginScreen
+import com.example.accesovehicular.ui.screens.scanner.ScannerScreen
 import com.example.accesovehicular.ui.screens.splash.SplashScreen
 
 @Composable
@@ -45,8 +46,14 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
                     navController.navigate(Screen.Login.route) {
                         popUpTo(Screen.Home.route) { inclusive = true }
                     }
+                },
+                onEscanearQr = {
+                    navController.navigate(Screen.Scanner.route)
                 }
             )
+        }
+        composable(Screen.Scanner.route) {
+            ScannerScreen()
         }
     }
 }
