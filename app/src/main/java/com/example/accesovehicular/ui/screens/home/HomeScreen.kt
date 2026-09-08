@@ -21,6 +21,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     onCerrarSesion: () -> Unit = {},
     onEscanearQr: () -> Unit = {},
+    onRegistrarVehiculo: () -> Unit = {},
     viewModel: HomeViewModel = viewModel()
 ) {
     val sesionCerrada by viewModel.sesionCerrada.collectAsState()
@@ -45,6 +46,10 @@ fun HomeScreen(
 
         Button(onClick = onEscanearQr) {
             Text("Escanear QR")
+        }
+
+        Button(onClick = onRegistrarVehiculo) {
+            Text("Registrar vehículo")
         }
 
         Button(onClick = viewModel::onCerrarSesionClick) {
