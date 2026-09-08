@@ -22,6 +22,7 @@ fun HomeScreen(
     onCerrarSesion: () -> Unit = {},
     onEscanearQr: () -> Unit = {},
     onRegistrarVehiculo: () -> Unit = {},
+    onVerHistorial: () -> Unit = {},
     viewModel: HomeViewModel = viewModel()
 ) {
     val sesionCerrada by viewModel.sesionCerrada.collectAsState()
@@ -50,6 +51,10 @@ fun HomeScreen(
 
         Button(onClick = onRegistrarVehiculo) {
             Text("Registrar vehículo")
+        }
+
+        Button(onClick = onVerHistorial) {
+            Text("Historial de accesos")
         }
 
         Button(onClick = viewModel::onCerrarSesionClick) {

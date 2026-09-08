@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.accesovehicular.ui.screens.historial.HistorialScreen
 import com.example.accesovehicular.ui.screens.home.HomeScreen
 import com.example.accesovehicular.ui.screens.login.LoginScreen
 import com.example.accesovehicular.ui.screens.registro.RegistroVehiculoScreen
@@ -53,6 +54,9 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
                 },
                 onRegistrarVehiculo = {
                     navController.navigate(Screen.RegistroVehiculo.route)
+                },
+                onVerHistorial = {
+                    navController.navigate(Screen.HistorialAccesos.route)
                 }
             )
         }
@@ -61,6 +65,9 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
         }
         composable(Screen.RegistroVehiculo.route) {
             RegistroVehiculoScreen()
+        }
+        composable(Screen.HistorialAccesos.route) {
+            HistorialScreen()
         }
     }
 }
