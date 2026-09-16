@@ -19,12 +19,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.accesovehicular.domain.model.Sesion
+import com.example.accesovehicular.domain.model.Rol
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    onLoginExitoso: (Sesion) -> Unit = {},
+    onLoginExitosoUsuario: () -> Unit = {},
+    onLoginExitosoAdministracion: () -> Unit = {},
     viewModel: LoginViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -32,7 +33,10 @@ fun LoginScreen(
     LaunchedEffect(uiState) {
         val estado = uiState
         if (estado is LoginUiState.Exito) {
-            onLoginExitoso(estado.sesion)
+            when (estado.sesion.rol) {
+                Rol.ADMINISTRACION -> onLoginExitosoAdministracion()
+                Rol.USUARIO -> onLoginExitosoUsuario()
+            }
         }
     }
 

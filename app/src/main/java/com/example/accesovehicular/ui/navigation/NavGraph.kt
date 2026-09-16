@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.accesovehicular.ui.screens.administracion.HomeAdministracionScreen
 import com.example.accesovehicular.ui.screens.historial.HistorialScreen
 import com.example.accesovehicular.ui.screens.home.HomeScreen
 import com.example.accesovehicular.ui.screens.login.LoginScreen
@@ -21,8 +22,13 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
     ) {
         composable(Screen.Splash.route) {
             SplashScreen(
-                onSesionActiva = {
+                onSesionUsuario = {
                     navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Splash.route) { inclusive = true }
+                    }
+                },
+                onSesionAdministracion = {
+                    navController.navigate(Screen.HomeAdministracion.route) {
                         popUpTo(Screen.Splash.route) { inclusive = true }
                     }
                 },
@@ -35,8 +41,13 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
         }
         composable(Screen.Login.route) {
             LoginScreen(
-                onLoginExitoso = {
+                onLoginExitosoUsuario = {
                     navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Login.route) { inclusive = true }
+                    }
+                },
+                onLoginExitosoAdministracion = {
+                    navController.navigate(Screen.HomeAdministracion.route) {
                         popUpTo(Screen.Login.route) { inclusive = true }
                     }
                 }
@@ -57,6 +68,15 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
                 },
                 onVerHistorial = {
                     navController.navigate(Screen.HistorialAccesos.route)
+                }
+            )
+        }
+        composable(Screen.HomeAdministracion.route) {
+            HomeAdministracionScreen(
+                onCerrarSesion = {
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(Screen.HomeAdministracion.route) { inclusive = true }
+                    }
                 }
             )
         }

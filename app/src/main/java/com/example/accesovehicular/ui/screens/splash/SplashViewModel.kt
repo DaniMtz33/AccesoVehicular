@@ -3,6 +3,7 @@ package com.example.accesovehicular.ui.screens.splash
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.accesovehicular.data.repository.AuthRepositoryImpl
+import com.example.accesovehicular.domain.model.Rol
 import com.example.accesovehicular.domain.usecase.ObtenerSesionUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +13,8 @@ import kotlinx.coroutines.launch
 sealed interface DestinoInicial {
     data object Verificando : DestinoInicial
     data object IrALogin : DestinoInicial
-    data object IrAHome : DestinoInicial
+    data object IrAHomeUsuario : DestinoInicial
+    data object IrAHomeAdministracion : DestinoInicial
 }
 
 class SplashViewModel(
@@ -25,7 +27,11 @@ class SplashViewModel(
     init {
         viewModelScope.launch {
             val sesion = obtenerSesion()
-            _destino.value = if (sesion != null) DestinoInicial.IrAHome else DestinoInicial.IrALogin
+            _destino.value = when (sesion?.rol) {
+                Rol.ADMINISTRACION -> DestinoInicial.IrAHomeAdministracion
+                Rol.USUARIO -> DestinoInicial.IrAHomeUsuario
+                null -> DestinoInicial.IrALogin
+            }
         }
     }
 }

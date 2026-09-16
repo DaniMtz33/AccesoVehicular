@@ -1,6 +1,7 @@
 package com.example.accesovehicular.data.repository
 
 import com.example.accesovehicular.data.local.SesionLocalDataSource
+import com.example.accesovehicular.domain.model.Rol
 import com.example.accesovehicular.domain.model.Sesion
 import com.example.accesovehicular.domain.repository.AuthRepository
 import kotlinx.coroutines.delay
@@ -16,21 +17,28 @@ class AuthRepositoryImpl : AuthRepository {
 
     override suspend fun login(usuario: String, contrasena: String): Result<Sesion> {
         delay(1500)
-        return if (usuario == "test" && contrasena == "1234") {
+
+        val rol = when {
+            usuario.equals("admin", ignoreCase = true) -> Rol.ADMINISTRACION
+            usuario == "test" && contrasena == "1234" -> Rol.USUARIO
+            else -> null
+        }
+
+        return if (rol != null) {
             val token = "mock-token-${System.currentTimeMillis()}"
-            SesionLocalDataSource.guardarToken(token)
-            Result.success(Sesion(token = token))
+            SesionLocalDataSource.guardarSesion(token, rol)
+            Result.success(Sesion(token = token, rol = rol))
         } else {
             Result.failure(Exception("Usuario o contraseña inválidos"))
         }
     }
 
     override suspend fun obtenerSesionGuardada(): Sesion? {
-        val token = SesionLocalDataSource.tokenFlow.first()
-        return token?.let { Sesion(token = it) }
+        val guardada = SesionLocalDataSource.sesionFlow.first() ?: return null
+        return Sesion(token = guardada.token, rol = guardada.rol)
     }
 
     override suspend fun cerrarSesion() {
-        SesionLocalDataSource.borrarToken()
+        SesionLocalDataSource.borrarSesion()
     }
 }

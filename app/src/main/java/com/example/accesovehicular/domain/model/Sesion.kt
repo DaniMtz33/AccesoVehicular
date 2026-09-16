@@ -1,5 +1,6 @@
 package com.example.accesovehicular.domain.model
 
 data class Sesion(
-    val token: String
+    val token: String,
+    val rol: Rol
 )

@@ -14,7 +14,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
-    onSesionActiva: () -> Unit = {},
+    onSesionUsuario: () -> Unit = {},
+    onSesionAdministracion: () -> Unit = {},
     onSinSesion: () -> Unit = {},
     viewModel: SplashViewModel = viewModel()
 ) {
@@ -22,7 +23,8 @@ fun SplashScreen(
 
     LaunchedEffect(destino) {
         when (destino) {
-            DestinoInicial.IrAHome -> onSesionActiva()
+            DestinoInicial.IrAHomeUsuario -> onSesionUsuario()
+            DestinoInicial.IrAHomeAdministracion -> onSesionAdministracion()
             DestinoInicial.IrALogin -> onSinSesion()
             DestinoInicial.Verificando -> Unit
         }
