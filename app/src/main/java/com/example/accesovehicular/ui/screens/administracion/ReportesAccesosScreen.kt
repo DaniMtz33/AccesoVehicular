@@ -5,12 +5,10 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun ReportesAccesosScreen(
-    modifier: Modifier = Modifier,
-    onVolver: () -> Unit = {}
+    modifier: Modifier = Modifier
 ) {
     SeccionEnConstruccion(
         titulo = "Reportes de accesos",
-        onVolver = onVolver,
         modifier = modifier
     )
 }

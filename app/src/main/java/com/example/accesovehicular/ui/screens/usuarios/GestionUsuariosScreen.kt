@@ -45,7 +45,6 @@ import com.example.accesovehicular.domain.model.TipoUsuario
 @Composable
 fun GestionUsuariosScreen(
     modifier: Modifier = Modifier,
-    onVolver: () -> Unit = {},
     viewModel: GestionUsuariosViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -66,19 +65,10 @@ fun GestionUsuariosScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                TextButton(onClick = onVolver) {
-                    Text("Volver")
-                }
-                Text(
-                    text = "Gestión de usuarios",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.weight(1f)
-                )
-            }
+            Text(
+                text = "Gestión de usuarios",
+                style = MaterialTheme.typography.titleLarge
+            )
 
             Button(
                 onClick = viewModel::onAgregarClick,

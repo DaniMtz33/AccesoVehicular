@@ -100,13 +100,13 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
             )
         }
         composable(Screen.GestionUsuarios.route) {
-            GestionUsuariosScreen(onVolver = { navController.popBackStack() })
+            GestionUsuariosScreen()
         }
         composable(Screen.ReportesAccesos.route) {
-            ReportesAccesosScreen(onVolver = { navController.popBackStack() })
+            ReportesAccesosScreen()
         }
         composable(Screen.Bitacora.route) {
-            BitacoraScreen(onVolver = { navController.popBackStack() })
+            BitacoraScreen()
         }
         composable(Screen.Scanner.route) {
             ScannerScreen()

@@ -5,12 +5,10 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun BitacoraScreen(
-    modifier: Modifier = Modifier,
-    onVolver: () -> Unit = {}
+    modifier: Modifier = Modifier
 ) {
     SeccionEnConstruccion(
         titulo = "Bitácora",
-        onVolver = onVolver,
         modifier = modifier
     )
 }
