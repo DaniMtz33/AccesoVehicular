@@ -20,6 +20,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun HomeAdministracionScreen(
     modifier: Modifier = Modifier,
     onCerrarSesion: () -> Unit = {},
+    onEscanearQr: () -> Unit = {},
+    onGestionUsuarios: () -> Unit = {},
+    onReportesAccesos: () -> Unit = {},
+    onBitacora: () -> Unit = {},
     viewModel: HomeAdministracionViewModel = viewModel()
 ) {
     val sesionCerrada by viewModel.sesionCerrada.collectAsState()
@@ -41,6 +45,22 @@ fun HomeAdministracionScreen(
             text = "Panel de Administración",
             style = MaterialTheme.typography.headlineSmall
         )
+
+        Button(onClick = onEscanearQr) {
+            Text("Escanear QR en caseta")
+        }
+
+        Button(onClick = onGestionUsuarios) {
+            Text("Gestión de usuarios")
+        }
+
+        Button(onClick = onReportesAccesos) {
+            Text("Reportes de accesos")
+        }
+
+        Button(onClick = onBitacora) {
+            Text("Bitácora")
+        }
 
         Button(onClick = viewModel::onCerrarSesionClick) {
             Text("Cerrar sesión")

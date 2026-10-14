@@ -5,7 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.accesovehicular.ui.screens.administracion.BitacoraScreen
+import com.example.accesovehicular.ui.screens.administracion.GestionUsuariosScreen
 import com.example.accesovehicular.ui.screens.administracion.HomeAdministracionScreen
+import com.example.accesovehicular.ui.screens.administracion.ReportesAccesosScreen
 import com.example.accesovehicular.ui.screens.historial.HistorialScreen
 import com.example.accesovehicular.ui.screens.home.HomeScreen
 import com.example.accesovehicular.ui.screens.login.LoginScreen
@@ -81,8 +84,29 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
                     navController.navigate(Screen.Login.route) {
                         popUpTo(Screen.HomeAdministracion.route) { inclusive = true }
                     }
+                },
+                onEscanearQr = {
+                    navController.navigate(Screen.Scanner.route)
+                },
+                onGestionUsuarios = {
+                    navController.navigate(Screen.GestionUsuarios.route)
+                },
+                onReportesAccesos = {
+                    navController.navigate(Screen.ReportesAccesos.route)
+                },
+                onBitacora = {
+                    navController.navigate(Screen.Bitacora.route)
                 }
             )
+        }
+        composable(Screen.GestionUsuarios.route) {
+            GestionUsuariosScreen(onVolver = { navController.popBackStack() })
+        }
+        composable(Screen.ReportesAccesos.route) {
+            ReportesAccesosScreen(onVolver = { navController.popBackStack() })
+        }
+        composable(Screen.Bitacora.route) {
+            BitacoraScreen(onVolver = { navController.popBackStack() })
         }
         composable(Screen.Scanner.route) {
             ScannerScreen()
