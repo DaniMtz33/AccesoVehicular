@@ -2,6 +2,7 @@ package com.example.accesovehicular.ui.screens.caseta
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.accesovehicular.data.repository.BitacoraRepositoryImpl
 import com.example.accesovehicular.data.repository.ValidacionQrRepositoryImpl
 import com.example.accesovehicular.domain.usecase.ValidarQrAccesoUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,7 +11,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class EscaneoCasetaViewModel(
-    private val validarQr: ValidarQrAccesoUseCase = ValidarQrAccesoUseCase(ValidacionQrRepositoryImpl())
+    private val validarQr: ValidarQrAccesoUseCase =
+        ValidarQrAccesoUseCase(ValidacionQrRepositoryImpl(), BitacoraRepositoryImpl())
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<EscaneoCasetaUiState>(EscaneoCasetaUiState.Escaneando)

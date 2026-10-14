@@ -5,9 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.accesovehicular.data.repository.BitacoraRepositoryImpl
 import com.example.accesovehicular.data.repository.PersonaRepositoryImpl
 import com.example.accesovehicular.domain.model.Persona
 import com.example.accesovehicular.domain.model.TipoUsuario
+import com.example.accesovehicular.domain.repository.BitacoraRepository
 import com.example.accesovehicular.domain.repository.PersonaRepository
 import com.example.accesovehicular.domain.usecase.DarDeBajaPersonaUseCase
 import com.example.accesovehicular.domain.usecase.ObtenerPersonasUseCase
@@ -19,9 +21,10 @@ import kotlinx.coroutines.launch
 
 class GestionUsuariosViewModel(
     repository: PersonaRepository = PersonaRepositoryImpl(),
+    bitacoraRepository: BitacoraRepository = BitacoraRepositoryImpl(),
     private val obtenerPersonas: ObtenerPersonasUseCase = ObtenerPersonasUseCase(repository),
-    private val registrarPersona: RegistrarPersonaUseCase = RegistrarPersonaUseCase(repository),
-    private val darDeBaja: DarDeBajaPersonaUseCase = DarDeBajaPersonaUseCase(repository)
+    private val registrarPersona: RegistrarPersonaUseCase = RegistrarPersonaUseCase(repository, bitacoraRepository),
+    private val darDeBaja: DarDeBajaPersonaUseCase = DarDeBajaPersonaUseCase(repository, bitacoraRepository)
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<GestionUsuariosUiState>(GestionUsuariosUiState.Cargando)
