@@ -42,7 +42,7 @@ fun MiQrScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Text(text = "No se pudo generar tu QR: ${estado.mensaje}")
+                    Text(text = estado.mensaje)
                     Button(onClick = viewModel::cargarQr) {
                         Text("Reintentar")
                     }

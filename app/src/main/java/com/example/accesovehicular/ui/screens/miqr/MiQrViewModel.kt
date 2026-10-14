@@ -31,7 +31,7 @@ class MiQrViewModel(
                     MiQrUiState.Exito(credencial, imagen)
                 }
                 .onSuccess { exito -> _uiState.value = exito }
-                .onFailure { error -> _uiState.value = MiQrUiState.Error(error.message ?: "Error desconocido") }
+                .onFailure { error -> _uiState.value = MiQrUiState.Error(error.message ?: "No se pudo generar tu código QR") }
         }
     }
 }
