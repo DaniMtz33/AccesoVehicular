@@ -21,7 +21,8 @@ class CredencialQrRepositoryImpl : CredencialQrRepository {
         }
 
         // El registro de vehículo todavía no persiste nada, así que se usan datos de ejemplo.
-        val idUsuario = "USR-0001"
+        // "1" es Ana López en la lista mock de Gestión de usuarios, para que la caseta lo reconozca.
+        val idUsuario = "1"
         val placa = "ABC-123"
         val contenido = ContenidoQr(idUsuario = idUsuario, placa = placa).serializar()
 

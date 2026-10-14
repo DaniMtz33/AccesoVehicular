@@ -8,3 +8,8 @@ fun formatearFechaHora(epochMillis: Long): String {
     val formato = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
     return formato.format(Date(epochMillis))
 }
+
+fun formatearHora(epochMillis: Long): String {
+    val formato = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+    return formato.format(Date(epochMillis))
+}

@@ -46,6 +46,11 @@ class PersonaRepositoryImpl : PersonaRepository {
         return Result.success(actualizada)
     }
 
+    override suspend fun buscarPorId(id: String): Result<Persona?> {
+        delay(300)
+        return Result.success(personas.firstOrNull { it.id == id })
+    }
+
     // Vive a nivel de clase para que las altas y bajas sobrevivan al salir y volver a la pantalla.
     private companion object {
         val personas = mutableListOf(

@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.accesovehicular.ui.screens.administracion.BitacoraScreen
 import com.example.accesovehicular.ui.screens.administracion.HomeAdministracionScreen
+import com.example.accesovehicular.ui.screens.caseta.EscaneoCasetaScreen
 import com.example.accesovehicular.ui.screens.historial.HistorialScreen
 import com.example.accesovehicular.ui.screens.home.HomeScreen
 import com.example.accesovehicular.ui.screens.login.LoginScreen
@@ -86,7 +87,7 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
                     }
                 },
                 onEscanearQr = {
-                    navController.navigate(Screen.Scanner.route)
+                    navController.navigate(Screen.EscaneoCaseta.route)
                 },
                 onGestionUsuarios = {
                     navController.navigate(Screen.GestionUsuarios.route)
@@ -107,6 +108,9 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
         }
         composable(Screen.Bitacora.route) {
             BitacoraScreen()
+        }
+        composable(Screen.EscaneoCaseta.route) {
+            EscaneoCasetaScreen()
         }
         composable(Screen.Scanner.route) {
             ScannerScreen()

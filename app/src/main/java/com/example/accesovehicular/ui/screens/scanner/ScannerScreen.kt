@@ -52,6 +52,44 @@ fun ScannerScreen(
     modifier: Modifier = Modifier,
     viewModel: ScannerViewModel = viewModel()
 ) {
+    val codigoDetectado by viewModel.codigoDetectado.collectAsState()
+
+    Box(modifier = modifier.fillMaxSize()) {
+        EscanerQr(
+            onCodigoDetectado = viewModel::onCodigoDetectado,
+            modifier = Modifier.fillMaxSize()
+        )
+        codigoDetectado?.let { codigo ->
+            Card(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = "Código detectado",
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                    Text(
+                        text = codigo,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Vista de cámara que lee QR con ML Kit; pide el permiso de cámara si hace falta.
+ * [onCodigoDetectado] puede llamarse varias veces por segundo con el mismo valor.
+ */
+@Composable
+fun EscanerQr(
+    onCodigoDetectado: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val context = LocalContext.current
     var tienePermiso by remember {
         mutableStateOf(
@@ -70,33 +108,12 @@ fun ScannerScreen(
         }
     }
 
-    val codigoDetectado by viewModel.codigoDetectado.collectAsState()
-
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(modifier = modifier) {
         if (tienePermiso) {
             CameraPreview(
-                onCodigoDetectado = viewModel::onCodigoDetectado,
+                onCodigoDetectado = onCodigoDetectado,
                 modifier = Modifier.fillMaxSize()
             )
-            codigoDetectado?.let { codigo ->
-                Card(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(
-                            text = "Código detectado",
-                            style = MaterialTheme.typography.labelMedium
-                        )
-                        Text(
-                            text = codigo,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    }
-                }
-            }
         } else {
             PermisoCamaraDenegado(
                 modifier = Modifier.align(Alignment.Center),
@@ -151,9 +168,13 @@ private fun CameraPreview(
     val cameraExecutor = remember { Executors.newSingleThreadExecutor() }
     val scanner = remember { BarcodeScanning.getClient() }
     val onCodigoDetectadoActualizado = rememberUpdatedState(onCodigoDetectado)
+    var cameraProvider by remember { mutableStateOf<ProcessCameraProvider?>(null) }
 
     DisposableEffect(Unit) {
         onDispose {
+            // La pantalla puede quitar la vista sin salir del destino (p. ej. al mostrar un resultado):
+            // se desvincula la cámara para que el analizador deje de leer.
+            cameraProvider?.unbindAll()
             cameraExecutor.shutdown()
             scanner.close()
         }
@@ -165,7 +186,7 @@ private fun CameraPreview(
     )
 
     LaunchedEffect(previewView) {
-        val cameraProvider = context.obtenerCameraProvider()
+        val provider = context.obtenerCameraProvider().also { cameraProvider = it }
 
         val preview = Preview.Builder().build().also {
             it.surfaceProvider = previewView.surfaceProvider
@@ -182,8 +203,8 @@ private fun CameraPreview(
                 }
             }
 
-        cameraProvider.unbindAll()
-        cameraProvider.bindToLifecycle(
+        provider.unbindAll()
+        provider.bindToLifecycle(
             lifecycleOwner,
             CameraSelector.DEFAULT_BACK_CAMERA,
             preview,
