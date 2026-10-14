@@ -6,7 +6,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.accesovehicular.ui.screens.administracion.BitacoraScreen
-import com.example.accesovehicular.ui.screens.administracion.GestionUsuariosScreen
 import com.example.accesovehicular.ui.screens.administracion.HomeAdministracionScreen
 import com.example.accesovehicular.ui.screens.administracion.ReportesAccesosScreen
 import com.example.accesovehicular.ui.screens.historial.HistorialScreen
@@ -16,6 +15,7 @@ import com.example.accesovehicular.ui.screens.miqr.MiQrScreen
 import com.example.accesovehicular.ui.screens.registro.RegistroVehiculoScreen
 import com.example.accesovehicular.ui.screens.scanner.ScannerScreen
 import com.example.accesovehicular.ui.screens.splash.SplashScreen
+import com.example.accesovehicular.ui.screens.usuarios.GestionUsuariosScreen
 
 @Composable
 fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
