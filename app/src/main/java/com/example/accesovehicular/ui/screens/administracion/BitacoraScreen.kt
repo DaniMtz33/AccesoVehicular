@@ -151,7 +151,7 @@ private fun ListaRegistros(registros: List<RegistroBitacora>) {
     }
 }
 
-private fun TipoAccionBitacora.etiqueta(): String = when (this) {
+internal fun TipoAccionBitacora.etiqueta(): String = when (this) {
     TipoAccionBitacora.ALTA -> "Alta de persona"
     TipoAccionBitacora.BAJA -> "Baja de persona"
     TipoAccionBitacora.ESCANEO -> "Escaneo en caseta"
