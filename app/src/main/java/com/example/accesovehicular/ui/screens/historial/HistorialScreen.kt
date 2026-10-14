@@ -22,9 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.accesovehicular.domain.model.Acceso
 import com.example.accesovehicular.domain.model.TipoAcceso
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import com.example.accesovehicular.ui.common.formatearFechaHora
 
 @Composable
 fun HistorialScreen(
@@ -83,9 +81,4 @@ private fun ListaAccesos(accesos: List<Acceso>) {
             }
         }
     }
-}
-
-private fun formatearFechaHora(epochMillis: Long): String {
-    val formato = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-    return formato.format(Date(epochMillis))
 }

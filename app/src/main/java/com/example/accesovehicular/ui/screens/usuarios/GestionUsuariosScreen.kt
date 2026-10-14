@@ -1,6 +1,5 @@
 package com.example.accesovehicular.ui.screens.usuarios
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -20,7 +18,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -41,6 +38,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.accesovehicular.domain.model.Persona
 import com.example.accesovehicular.domain.model.TipoUsuario
+import com.example.accesovehicular.ui.common.FiltroTipoUsuario
+import com.example.accesovehicular.ui.common.etiqueta
 
 @Composable
 fun GestionUsuariosScreen(
@@ -77,7 +76,7 @@ fun GestionUsuariosScreen(
                 Text("Agregar persona")
             }
 
-            FiltroTipo(
+            FiltroTipoUsuario(
                 seleccionado = viewModel.filtro,
                 onSeleccionar = viewModel::onFiltroChange
             )
@@ -142,32 +141,6 @@ fun GestionUsuariosScreen(
             onConfirmar = viewModel::onConfirmarBaja,
             onCancelar = viewModel::onCancelarBaja
         )
-    }
-}
-
-@Composable
-private fun FiltroTipo(
-    seleccionado: TipoUsuario?,
-    onSeleccionar: (TipoUsuario?) -> Unit
-) {
-    val opciones = listOf(
-        null to "Todos",
-        TipoUsuario.RESIDENTE to "Residentes",
-        TipoUsuario.VISITA to "Visitas",
-        TipoUsuario.PROVEEDOR to "Proveedores"
-    )
-
-    Row(
-        modifier = Modifier.horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        opciones.forEach { (tipo, etiqueta) ->
-            FilterChip(
-                selected = seleccionado == tipo,
-                onClick = { onSeleccionar(tipo) },
-                label = { Text(etiqueta) }
-            )
-        }
     }
 }
 
@@ -326,10 +299,4 @@ private fun DialogoBaja(
             }
         }
     )
-}
-
-private fun TipoUsuario.etiqueta(): String = when (this) {
-    TipoUsuario.RESIDENTE -> "Residente"
-    TipoUsuario.VISITA -> "Visita"
-    TipoUsuario.PROVEEDOR -> "Proveedor"
 }

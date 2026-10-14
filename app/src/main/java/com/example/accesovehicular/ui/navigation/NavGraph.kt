@@ -7,12 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.accesovehicular.ui.screens.administracion.BitacoraScreen
 import com.example.accesovehicular.ui.screens.administracion.HomeAdministracionScreen
-import com.example.accesovehicular.ui.screens.administracion.ReportesAccesosScreen
 import com.example.accesovehicular.ui.screens.historial.HistorialScreen
 import com.example.accesovehicular.ui.screens.home.HomeScreen
 import com.example.accesovehicular.ui.screens.login.LoginScreen
 import com.example.accesovehicular.ui.screens.miqr.MiQrScreen
 import com.example.accesovehicular.ui.screens.registro.RegistroVehiculoScreen
+import com.example.accesovehicular.ui.screens.reportes.ReportesAccesosScreen
 import com.example.accesovehicular.ui.screens.scanner.ScannerScreen
 import com.example.accesovehicular.ui.screens.splash.SplashScreen
 import com.example.accesovehicular.ui.screens.usuarios.GestionUsuariosScreen
