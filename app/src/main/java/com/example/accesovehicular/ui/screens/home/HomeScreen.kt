@@ -23,6 +23,7 @@ fun HomeScreen(
     onEscanearQr: () -> Unit = {},
     onRegistrarVehiculo: () -> Unit = {},
     onVerHistorial: () -> Unit = {},
+    onVerMiQr: () -> Unit = {},
     viewModel: HomeViewModel = viewModel()
 ) {
     val sesionCerrada by viewModel.sesionCerrada.collectAsState()
@@ -44,6 +45,10 @@ fun HomeScreen(
             text = "Bienvenido",
             style = MaterialTheme.typography.headlineSmall
         )
+
+        Button(onClick = onVerMiQr) {
+            Text("Mi QR")
+        }
 
         Button(onClick = onEscanearQr) {
             Text("Escanear QR")

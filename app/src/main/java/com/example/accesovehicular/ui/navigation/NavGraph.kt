@@ -9,6 +9,7 @@ import com.example.accesovehicular.ui.screens.administracion.HomeAdministracionS
 import com.example.accesovehicular.ui.screens.historial.HistorialScreen
 import com.example.accesovehicular.ui.screens.home.HomeScreen
 import com.example.accesovehicular.ui.screens.login.LoginScreen
+import com.example.accesovehicular.ui.screens.miqr.MiQrScreen
 import com.example.accesovehicular.ui.screens.registro.RegistroVehiculoScreen
 import com.example.accesovehicular.ui.screens.scanner.ScannerScreen
 import com.example.accesovehicular.ui.screens.splash.SplashScreen
@@ -68,6 +69,9 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
                 },
                 onVerHistorial = {
                     navController.navigate(Screen.HistorialAccesos.route)
+                },
+                onVerMiQr = {
+                    navController.navigate(Screen.MiQr.route)
                 }
             )
         }
@@ -88,6 +92,9 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
         }
         composable(Screen.HistorialAccesos.route) {
             HistorialScreen()
+        }
+        composable(Screen.MiQr.route) {
+            MiQrScreen()
         }
     }
 }

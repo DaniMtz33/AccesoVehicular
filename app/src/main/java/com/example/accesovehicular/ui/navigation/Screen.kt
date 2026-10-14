@@ -8,4 +8,5 @@ sealed class Screen(val route: String) {
     data object Scanner : Screen("escanear_qr")
     data object RegistroVehiculo : Screen("registro_vehiculo")
     data object HistorialAccesos : Screen("historial_accesos")
+    data object MiQr : Screen("mi_qr")
 }
